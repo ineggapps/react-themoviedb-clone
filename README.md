@@ -11,6 +11,7 @@
 - [ ] Upcoming
 - [ ] Top Rated
 - [ ] Popular
+- [ ] Detail Page
 
 # API Verbs of TV Shows
 
@@ -18,3 +19,4 @@
 - [ ] Upcoming
 - [ ] Top Rated
 - [ ] Popular
+- [ ] Detail Page
