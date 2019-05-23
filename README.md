@@ -2,6 +2,7 @@
 
 #Screens
 
+- [ ] Home (Lists of Movies, TV Shows etc...)
 - [ ] Movies
 - [ ] TV Shows
 
