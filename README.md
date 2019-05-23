@@ -10,15 +10,15 @@
 # API Verbs of Movie
 
 - [ ] Now Playing
-- [ ] Upcoming
-- [ ] Top Rated
 - [ ] Popular
+- [ ] Top Rated
+- [ ] Upcoming
 - [ ] Detail Page
 
 # API Verbs of TV Shows
 
 - [ ] Airing Today
-- [ ] Upcoming
-- [ ] Top Rated
 - [ ] Popular
+- [ ] Top Rated
+- [ ] Upcoming
 - [ ] Detail Page
