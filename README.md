@@ -5,6 +5,7 @@
 - [ ] Home (Lists of Movies, TV Shows etc...)
 - [ ] Movies
 - [ ] TV Shows
+- [ ] Search
 
 # API Verbs of Movie
 
