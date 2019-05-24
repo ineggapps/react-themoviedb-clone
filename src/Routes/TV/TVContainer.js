@@ -8,42 +8,50 @@ export default class extends React.Component {
     tvs: null,
     error: null,
     pathname: null,
+    page: 1,
+    totalPages: 0,
     loading: true
   };
 
   constructor(props) {
     super(props);
     const {
-      location: { pathname }
+      location: { pathname },
+      match: {
+        params: { page }
+      }
     } = props;
     this.state = {
-      pathname
+      pathname,
+      page: page === undefined ? 1 : page
     };
     console.log("TVContainer👍", props, "🐯page is", props.match.params.page);
   }
 
-  getTVItems = pathname => {
+  getTVItems = (pathname, page = this.state.page) => {
+    console.log("getTVItems Called in page 🙏", page);
     if (pathname.includes(Routes.tv.airingToday)) {
       console.log("getTVItems", "airing-today");
-      return tvApi.airingToday();
+      return tvApi.airingToday(page);
     } else if (pathname.includes(Routes.tv.popular)) {
       console.log("getTVItems", "popular");
-      return tvApi.popular();
+      return tvApi.popular(page);
     } else if (pathname.includes(Routes.tv.topRated)) {
       console.log("getTVItems", "top-rated");
-      return tvApi.topRated();
+      return tvApi.topRated(page);
     } else if (pathname.includes(Routes.tv.onTheAir)) {
       console.log("getTVItems", "on-the-air");
-      return tvApi.onTheAir();
+      return tvApi.onTheAir(page);
     } else {
       // invalid pathname
-      return tvApi.onTheAir();
+      return tvApi.onTheAir(page);
     }
   };
 
   setLoadingState = isLoading => {
     this.setState({
-      loading: isLoading
+      loading: isLoading,
+      tvs: null
     });
   };
 
@@ -53,10 +61,10 @@ export default class extends React.Component {
       const { pathname } = this.state;
       // console.log("✨current location: ", pathname);
       const {
-        data: { results: tvs }
+        data: { results: tvs, total_pages: totalPages }
       } = await this.getTVItems(pathname);
       // console.log("🙏 tv items are: ", tvs);
-      this.setState({ pathname, tvs, loading: false });
+      this.setState({ pathname, tvs, loading: false, totalPages });
     } catch (error) {
       console.log("👿TVContainer:componentDidMount()", error);
     }
@@ -64,16 +72,31 @@ export default class extends React.Component {
 
   async componentWillReceiveProps(nextProps) {
     this.setLoadingState(true);
-    console.log("😊componentWillReceiveProps()", nextProps);
+    console.log(
+      "😊componentWillReceiveProps()",
+      nextProps,
+      "🐯page is",
+      nextProps.match.params.page
+    );
     try {
       const {
-        location: { pathname: nextPathname }
+        location: { pathname: nextPathname },
+        match: {
+          params: { page }
+        }
       } = nextProps;
       const {
-        data: { results: tvs }
+        data: { results: tvs, total_pages: totalPages }
       } = await this.getTVItems(nextPathname);
+      console.log("🐯🐯🐯🐯👍", await this.getTVItems(nextPathname, page));
       // console.log("next",tvs);
-      this.setState({ pathname: nextPathname, tvs, loading: false });
+      this.setState({
+        pathname: nextPathname,
+        tvs,
+        loading: false,
+        page: page === undefined ? 1 : page,
+        totalPages
+      });
     } catch (error) {
       console.log("👿TVContainer:componentWillReceiveProps()", error);
     }
@@ -85,7 +108,15 @@ export default class extends React.Component {
   }
 
   render() {
-    const { loading, tvs, pathname } = this.state;
-    return <TVPresenter loading={loading} tvs={tvs} pathname={pathname} />;
+    const { loading, tvs, pathname, page, totalPages } = this.state;
+    return (
+      <TVPresenter
+        loading={loading}
+        tvs={tvs}
+        pathname={pathname}
+        page={page}
+        totalPages={totalPages}
+      />
+    );
   }
 }

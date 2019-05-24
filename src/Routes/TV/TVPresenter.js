@@ -4,6 +4,7 @@ import styled from "styled-components";
 import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
 import Loader from "Components/Loader";
+import Pager from "Components/Pager";
 
 const TVContainer = styled.div`
   display: grid;
@@ -32,7 +33,7 @@ const tvTitleName = pathname => {
   }
 };
 
-const TVPresenter = ({ loading = true, tvs, pathname }) => {
+const TVPresenter = ({ loading = true, tvs, pathname, page = 1, totalPages }) => {
   tvs ? tvs.length > 0 && console.log("😉TVPresenter", tvs) : console.log("👿TVPresenter is null");
   return loading ? (
     <Loader />
@@ -61,6 +62,7 @@ const TVPresenter = ({ loading = true, tvs, pathname }) => {
             />
           ))}
       </TVContainer>
+      <Pager uri={pathname} currentPage={page} totalPages={totalPages} />
     </>
   );
 };
@@ -68,7 +70,9 @@ const TVPresenter = ({ loading = true, tvs, pathname }) => {
 TVPresenter.propTypes = {
   loading: PropTypes.bool,
   tvs: PropTypes.array,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired
 };
 
 export default TVPresenter;

@@ -23,13 +23,14 @@ export default class extends React.Component {
     } = props;
     this.state = {
       pathname,
-      page
+      page: page === undefined ? 1 : page
     };
+    console.log("😂page is", this.state.page, page === undefined);
     console.log("MovieContainer👍", props, "🐯page is", props.match.params.page);
   }
 
-  getMovieItems = pathname => {
-    const { page } = this.state;
+  getMovieItems = (pathname, page = this.state.page) => {
+    console.log("getMovieItems called in page ", page);
     if (pathname.includes(Routes.movie.nowPlaying)) {
       console.log("getMovieItems", "now-playing");
       return movieApi.nowPlaying(page);
@@ -50,7 +51,8 @@ export default class extends React.Component {
 
   setLoadingState = isLoading => {
     this.setState({
-      loading: isLoading
+      loading: isLoading,
+      movies: null
     });
   };
 
@@ -72,12 +74,6 @@ export default class extends React.Component {
 
   async componentWillReceiveProps(nextProps) {
     this.setLoadingState(true);
-    console.log(
-      "😊componentWillReceiveProps()",
-      nextProps,
-      "🐯page is",
-      nextProps.match.params.page
-    );
     try {
       const {
         location: { pathname: nextPathname },
@@ -85,12 +81,26 @@ export default class extends React.Component {
           params: { page }
         }
       } = nextProps;
+      console.log(
+        "😊componentWillReceiveProps()",
+        nextProps,
+        "🐯page is",
+        nextProps.match.params.page
+      );
+      this.state = { page };
       const {
         data: { results: movies, total_pages: totalPages }
       } = await this.getMovieItems(nextPathname);
-      console.log("🐯🐯🐯🐯👍", await this.getMovieItems(nextPathname));
+      console.log("🐯🐯🐯🐯👍", await this.getMovieItems(nextPathname, page));
       // console.log("next", movies);
-      this.setState({ pathname: nextPathname, movies, loading: false, page, totalPages });
+      await this.setState({
+        pathname: nextPathname,
+        movies,
+        loading: false,
+        page: page === undefined ? 1 : page,
+        totalPages
+      });
+      console.log("😂page is", this.state.page);
     } catch (error) {
       console.log("👿MovieContainer:componentWillReceiveProps()", error);
     }
@@ -98,6 +108,9 @@ export default class extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log("The loading state is ", nextState.loading);
+    if (this.state.movies === nextState.movies) {
+      return false;
+    }
     return true;
   }
 
