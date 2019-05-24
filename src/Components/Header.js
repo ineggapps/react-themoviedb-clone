@@ -74,7 +74,9 @@ const HeaderComponent = ({ location: { pathname } }) => (
   <>
     <Header>
       <Content>
-        <Logo />
+        <Link to={Routes.home}>
+          <Logo />
+        </Link>
         <MainMenu>
           <Item>
             <Link to="/">Discover</Link>

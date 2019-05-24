@@ -46,20 +46,24 @@ const MediaCardComponent = ({
   overview,
   poster_path,
   release_date,
-  more_info_link
+  detail_link
 }) => (
   <Container>
     <Poster>
-      <img src={poster_path} title={original_title} alt={original_title} />
+      <Link to={detail_link}>
+        <img src={poster_path} title={original_title} alt={original_title} />
+      </Link>
     </Poster>
     <MediaInfo>
       <TitleContainer>
         <Score>{vote_average}</Score>
-        <Title>{original_title}</Title>
+        <Title>
+          <Link to={detail_link}>{original_title}</Link>
+        </Title>
         <Date>{release_date}</Date>
       </TitleContainer>
       <OverView>{overview}</OverView>
-      <MoreInfo to={more_info_link}>More Info</MoreInfo>
+      <MoreInfo to={detail_link}>More Info</MoreInfo>
     </MediaInfo>
   </Container>
 );

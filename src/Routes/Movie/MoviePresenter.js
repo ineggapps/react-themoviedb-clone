@@ -50,7 +50,7 @@ const MoviePresenter = ({ loading, movies, pathname }) => {
               overview={movie.overview}
               poster_path={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
               release_date={movie.release_date}
-              more_info_link={`/movie/${movie.id}`}
+              detail_link={`/movie/${movie.id}`}
             />
           ))}
       </MovieContainer>
