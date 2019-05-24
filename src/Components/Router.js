@@ -6,18 +6,21 @@ import Home from "Routes/Home";
 import Movie from "Routes/Movie";
 import TV from "Routes/TV";
 import Search from "Routes/Search";
+import MainContainer from "Components/MainContainer";
 
 export default () => (
   <Router>
     <>
       <Header />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/home" exact component={Home} />
-        <Route path="/movie" component={Movie} />
-        <Route path="/tv" component={TV} />
-        <Route path="/search" component={Search} />
-      </Switch>
+      <MainContainer>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/home" exact component={Home} />
+          <Route path="/movie" component={Movie} />
+          <Route path="/tv" component={TV} />
+          <Route path="/search" component={Search} />
+        </Switch>
+      </MainContainer>
     </>
   </Router>
 );

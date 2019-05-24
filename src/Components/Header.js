@@ -2,11 +2,11 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "Components/Logo";
+import SearchBox from "Components/SearchBox";
 
 const Header = styled.header`
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   background-color: #081c24;
   color: white;
@@ -57,7 +57,17 @@ const SubItem = styled.li`
   }
 `;
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.section`
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-left: 0 none;
+  border-right: 0 none;
+  border-top: 0 none;
+  border-bottom: 1px solid #dedede;
+`;
 
 const HeaderComponent = ({ location: { pathname } }) => (
   <>
@@ -104,10 +114,10 @@ const HeaderComponent = ({ location: { pathname } }) => (
           </Item>
         </MainMenu>
       </Content>
+      <SearchContainer>
+        <SearchBox />
+      </SearchContainer>
     </Header>
-    <SearchContainer>
-      <input type="text" placeholder="SearchBox" />
-    </SearchContainer>
   </>
 );
 

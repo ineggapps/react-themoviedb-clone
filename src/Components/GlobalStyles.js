@@ -12,7 +12,7 @@ const globalStyles = createGlobalStyle`
         box-sizing:border-box;
     }
     body{
-        padding-top:111px;
+        padding-top:180px;
         font-family: 'Lato',-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size:1.4em;
     }
