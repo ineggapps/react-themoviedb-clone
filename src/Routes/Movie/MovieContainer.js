@@ -8,35 +8,43 @@ export default class extends React.Component {
     movies: null,
     error: null,
     pathname: null,
+    page: 1,
+    totalPages: 0,
     loading: true
   };
 
   constructor(props) {
     super(props);
     const {
-      location: { pathname }
+      location: { pathname },
+      match: {
+        params: { page }
+      }
     } = props;
     this.state = {
-      pathname
+      pathname,
+      page
     };
+    console.log("MovieContainer👍", props, "🐯page is", props.match.params.page);
   }
 
   getMovieItems = pathname => {
+    const { page } = this.state;
     if (pathname.includes(Routes.movie.nowPlaying)) {
       console.log("getMovieItems", "now-playing");
-      return movieApi.nowPlaying();
+      return movieApi.nowPlaying(page);
     } else if (pathname.includes(Routes.movie.popular)) {
       console.log("getMovieItems", "popular");
-      return movieApi.popular();
+      return movieApi.popular(page);
     } else if (pathname.includes(Routes.movie.topRated)) {
       console.log("getMovieItems", "top-rated");
-      return movieApi.topRated();
+      return movieApi.topRated(page);
     } else if (pathname.includes(Routes.movie.upcoming)) {
       console.log("getMovieItems", "upcoming");
-      return movieApi.upcoming();
+      return movieApi.upcoming(page);
     } else {
       // invalid pathname
-      return movieApi.nowPlaying();
+      return movieApi.nowPlaying(page);
     }
   };
 
@@ -52,10 +60,11 @@ export default class extends React.Component {
       const { pathname } = this.state;
       // console.log("✨current location: ", pathname);
       const {
-        data: { results: movies }
+        data: { results: movies, total_pages: totalPages }
       } = await this.getMovieItems(pathname);
+      console.log("🐯🐯🐯🐯👍", await this.getMovieItems(pathname));
       // console.log("🙏 movie items are: ", movies);
-      this.setState({ pathname, movies, loading: false });
+      this.setState({ pathname, movies, loading: false, totalPages });
     } catch (error) {
       console.log("👿MovieContainer:componentDidMount()", error);
     }
@@ -63,16 +72,25 @@ export default class extends React.Component {
 
   async componentWillReceiveProps(nextProps) {
     this.setLoadingState(true);
-    console.log("😊componentWillReceiveProps()", nextProps);
+    console.log(
+      "😊componentWillReceiveProps()",
+      nextProps,
+      "🐯page is",
+      nextProps.match.params.page
+    );
     try {
       const {
-        location: { pathname: nextPathname }
+        location: { pathname: nextPathname },
+        match: {
+          params: { page }
+        }
       } = nextProps;
       const {
-        data: { results: movies }
+        data: { results: movies, total_pages: totalPages }
       } = await this.getMovieItems(nextPathname);
+      console.log("🐯🐯🐯🐯👍", await this.getMovieItems(nextPathname));
       // console.log("next", movies);
-      this.setState({ pathname: nextPathname, movies, loading: false });
+      this.setState({ pathname: nextPathname, movies, loading: false, page, totalPages });
     } catch (error) {
       console.log("👿MovieContainer:componentWillReceiveProps()", error);
     }
@@ -84,7 +102,15 @@ export default class extends React.Component {
   }
 
   render() {
-    const { loading, movies, pathname } = this.state;
-    return <MoviePresenter loading={loading} movies={movies} pathname={pathname} />;
+    const { loading, movies, pathname, page, totalPages } = this.state;
+    return (
+      <MoviePresenter
+        loading={loading}
+        movies={movies}
+        pathname={pathname}
+        page={page}
+        totalPages={totalPages}
+      />
+    );
   }
 }

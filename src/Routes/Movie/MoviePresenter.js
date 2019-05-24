@@ -4,6 +4,7 @@ import styled from "styled-components";
 import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
 import Loader from "Components/Loader";
+import Pager from "Components/Pager";
 
 const MovieContainer = styled.div`
   display: grid;
@@ -18,7 +19,7 @@ const MovieTitle = styled.h1`
 `;
 
 const movieTitleName = pathname => {
-  console.log(pathname, Routes.movie.nowPlaying, "👿");
+  console.log("MoviePresenter current location is", pathname, "👿");
   if (pathname.includes(Routes.movie.nowPlaying)) {
     return "Now Playing Movies";
   } else if (pathname.includes(Routes.movie.popular)) {
@@ -32,7 +33,8 @@ const movieTitleName = pathname => {
   }
 };
 
-const MoviePresenter = ({ loading = true, movies, pathname }) => {
+const MoviePresenter = ({ loading = true, movies, pathname, page = 1, totalPages }) => {
+  console.log("💋MoviePresenter", pathname);
   movies
     ? movies.length > 0 && console.log("😉MoviePresenter", movies)
     : console.log("👿MoviePresenter is null");
@@ -63,6 +65,7 @@ const MoviePresenter = ({ loading = true, movies, pathname }) => {
             />
           ))}
       </MovieContainer>
+      <Pager uri={pathname} currentPage={page} totalPages={totalPages} />
     </>
   );
 };
@@ -70,7 +73,9 @@ const MoviePresenter = ({ loading = true, movies, pathname }) => {
 MoviePresenter.propTypes = {
   loading: PropTypes.bool,
   movies: PropTypes.array,
-  pathname: PropTypes.string.isRequired
+  pathname: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired
 };
 
 export default MoviePresenter;

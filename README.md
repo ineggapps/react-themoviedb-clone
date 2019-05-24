@@ -22,3 +22,7 @@
 - [x] Popular
 - [x] Top Rated
 - [ ] Detail Page
+
+# ETC Components List
+
+- [ ] Paging of List in Movies and TV Shows

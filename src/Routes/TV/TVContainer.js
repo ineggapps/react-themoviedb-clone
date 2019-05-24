@@ -19,6 +19,7 @@ export default class extends React.Component {
     this.state = {
       pathname
     };
+    console.log("TVContainer👍", props, "🐯page is", props.match.params.page);
   }
 
   getTVItems = pathname => {
