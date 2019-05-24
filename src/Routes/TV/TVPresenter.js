@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
+import Loader from "Components/Loader";
 
 const TVContainer = styled.div`
   display: grid;
@@ -33,7 +34,9 @@ const tvTitleName = pathname => {
 
 const TVPresenter = ({ loading = true, tvs, pathname }) => {
   tvs ? tvs.length > 0 && console.log("😉TVPresenter", tvs) : console.log("👿TVPresenter is null");
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       {console.log("tvTitleName:", pathname)}
       <TVTitle>{tvTitleName(pathname)}</TVTitle>

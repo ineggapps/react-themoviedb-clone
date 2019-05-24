@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
+import Loader from "Components/Loader";
 
 const MovieContainer = styled.div`
   display: grid;
@@ -35,7 +36,9 @@ const MoviePresenter = ({ loading = true, movies, pathname }) => {
   movies
     ? movies.length > 0 && console.log("😉MoviePresenter", movies)
     : console.log("👿MoviePresenter is null");
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       {console.log("movieTitleName:", pathname)}
       <MovieTitle>{movieTitleName(pathname)}</MovieTitle>
