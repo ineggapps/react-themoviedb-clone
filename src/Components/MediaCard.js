@@ -19,6 +19,7 @@ const Container = styled.div`
 
 const Poster = styled.div`
   & img {
+    width: 200px;
     height: 300px;
   }
 `;
