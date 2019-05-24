@@ -49,7 +49,7 @@ const SubMenu = styled.ul`
   position: absolute;
   padding-top: 15px;
   left: 0;
-  font-size: 0.75em;
+  font-size: 0.8em;
   color: #aaa;
 `;
 const SubItem = styled.li`

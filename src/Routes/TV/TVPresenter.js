@@ -26,9 +26,9 @@ const tvTitleName = pathname => {
   } else if (pathname.includes(Routes.tv.topRated)) {
     return "Top Rated TV Shows";
   } else if (pathname.includes(Routes.tv.upcoming)) {
-    return "UpComing TV Shows";
+    return "On The Air Now!";
   } else {
-    return "Airing Today Shows";
+    return "On The Air Now!";
   }
 };
 

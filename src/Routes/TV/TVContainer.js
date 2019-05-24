@@ -36,7 +36,7 @@ export default class extends React.Component {
       return tvApi.onTheAir();
     } else {
       // invalid pathname
-      return tvApi.airingToday();
+      return tvApi.onTheAir();
     }
   };
 

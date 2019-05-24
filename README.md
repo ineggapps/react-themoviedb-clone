@@ -3,22 +3,22 @@
 #Screens
 
 - [ ] Home (Lists of Movies, TV Shows etc...)
-- [ ] Movies
-- [ ] TV Shows
+- [x] Movies
+- [x] TV Shows
 - [ ] Search
 
 # API Verbs of Movie
 
-- [ ] Now Playing
-- [ ] Popular
-- [ ] Top Rated
-- [ ] Upcoming
+- [x] Now Playing
+- [x] Popular
+- [x] Top Rated
+- [x] Upcoming
 - [ ] Detail Page
 
 # API Verbs of TV Shows
 
-- [ ] Airing Today
-- [ ] Popular
-- [ ] Top Rated
-- [ ] Upcoming
+- [x] On The Air
+- [x] Airing Today
+- [x] Popular
+- [x] Top Rated
 - [ ] Detail Page
