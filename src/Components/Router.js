@@ -28,7 +28,7 @@ export const Routes = {
     home: ROUTE_TV,
     airingToday: `${ROUTE_TV}/airing-today`,
     popular: `${ROUTE_TV}/popular`,
-    upcoming: `${ROUTE_TV}/upcoming`,
+    onTheAir: `${ROUTE_TV}/on-the-air`,
     topRated: `${ROUTE_TV}/top-rated`,
     detail: `${ROUTE_TV}/:id`
   },

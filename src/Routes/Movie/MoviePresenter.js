@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
@@ -30,7 +31,7 @@ const movieTitleName = pathname => {
   }
 };
 
-const MoviePresenter = ({ loading, movies, pathname }) => {
+const MoviePresenter = ({ loading = true, movies, pathname }) => {
   movies
     ? movies.length > 0 && console.log("😉MoviePresenter", movies)
     : console.log("👿MoviePresenter is null");
@@ -49,14 +50,24 @@ const MoviePresenter = ({ loading, movies, pathname }) => {
               original_title={movie.original_title}
               vote_average={movie.vote_average}
               overview={movie.overview}
-              poster_path={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+              poster_path={
+                movie.poster_path &&
+                movie.poster_path.length > 0 &&
+                `https://image.tmdb.org/t/p/w200/${movie.poster_path}`
+              }
               release_date={movie.release_date}
-              detail_link={`/movie/${movie.id}`}
+              detail_link={`${Routes.movie.home}/${movie.id}`}
             />
           ))}
       </MovieContainer>
     </>
   );
+};
+
+MoviePresenter.propTypes = {
+  loading: PropTypes.bool,
+  movies: PropTypes.array,
+  pathname: PropTypes.string.isRequired
 };
 
 export default MoviePresenter;

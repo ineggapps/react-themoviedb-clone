@@ -60,8 +60,8 @@ export const tvApi = {
         page
       }
     }),
-  upcoming: (page = 1) =>
-    api.get("tv/upcoming", {
+  onTheAir: (page = 1) =>
+    api.get("tv/on_the_air", {
       params: {
         page
       }

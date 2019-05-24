@@ -102,6 +102,9 @@ const HeaderComponent = ({ location: { pathname } }) => (
             <Link to={Routes.tv.home}>TV Shows</Link>
             <SubMenu>
               <SubItem>
+                <Link to={Routes.tv.onTheAir}>On The Air</Link>
+              </SubItem>
+              <SubItem>
                 <Link to={Routes.tv.airingToday}>Airing Today</Link>
               </SubItem>
               <SubItem>
@@ -109,9 +112,6 @@ const HeaderComponent = ({ location: { pathname } }) => (
               </SubItem>
               <SubItem>
                 <Link to={Routes.tv.topRated}>Top Rated</Link>
-              </SubItem>
-              <SubItem>
-                <Link to={Routes.tv.upcoming}>Upcoming</Link>
               </SubItem>
             </SubMenu>
           </Item>

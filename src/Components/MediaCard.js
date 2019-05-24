@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import LinesEllipsis from "react-lines-ellipsis";
 
@@ -22,7 +23,14 @@ const Poster = styled.div`
   }
 `;
 
+const NoImage = styled.div`
+  width: 200px;
+  height: 300px;
+  background-color: #e0e0e0;
+`;
+
 const MediaInfo = styled.div`
+  width: 280px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -57,7 +65,7 @@ const Date = styled.p`
 `;
 const OverView = styled(LinesEllipsis)`
   line-height: 1.2em;
-  font-size: 0.8em;
+  font-size: 0.7em;
   overflow: hidden;
   padding: 0 10px;
   word-break: break-all;
@@ -91,7 +99,11 @@ const MediaCardComponent = ({
   <Container>
     <Poster>
       <Link to={detail_link}>
-        <img src={poster_path} title={original_title} alt={original_title} />
+        {poster_path && poster_path !== "" ? (
+          <img src={poster_path} title={original_title} alt={original_title} />
+        ) : (
+          <NoImage />
+        )}
       </Link>
     </Poster>
     <MediaInfo>
@@ -102,12 +114,29 @@ const MediaCardComponent = ({
           <Date>{release_date}</Date>
         </Title>
       </TitleContainer>
-      <OverView text={overview} maxLine="9" ellipsis="..." trimRight basedOn="letters" />
+      <OverView
+        text={overview ? overview : "Click below for viewing detail"}
+        maxLine="15"
+        ellipsis="..."
+        trimRight
+        basedOn="letters"
+      />
       <MoreInfo>
         <Link to={detail_link}>More Info</Link>
       </MoreInfo>
     </MediaInfo>
   </Container>
 );
+
+MediaCardComponent.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  original_title: PropTypes.string.isRequired,
+  vote_average: PropTypes.number.isRequired,
+  overview: PropTypes.string.isRequired,
+  poster_path: PropTypes.string,
+  release_date: PropTypes.string.isRequired,
+  detail_link: PropTypes.string.isRequired
+};
 
 export default MediaCardComponent;
