@@ -10,6 +10,7 @@ const Logo = styled.div`
   padding: 8px;
   font-size: 0.8em;
   font-weight: 700;
+  user-select: none;
 `;
 
 export default () => (

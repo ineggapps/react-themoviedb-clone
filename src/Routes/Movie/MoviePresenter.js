@@ -45,6 +45,7 @@ const MoviePresenter = ({ loading, movies, pathname }) => {
             <MediaCard
               id={movie.id}
               key={movie.id}
+              title={movie.title}
               original_title={movie.original_title}
               vote_average={movie.vote_average}
               overview={movie.overview}

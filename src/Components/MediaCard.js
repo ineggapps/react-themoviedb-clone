@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import LinesEllipsis from "react-lines-ellipsis";
 
 const Container = styled.div`
   font-size: 0.9em;
@@ -15,32 +16,71 @@ const Container = styled.div`
   }
 `;
 
-const Poster = styled.div``;
+const Poster = styled.div`
+  & img {
+    height: 300px;
+  }
+`;
 
-const MediaInfo = styled.div``;
+const MediaInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
 
 const TitleContainer = styled.div`
   display: flex;
+  padding: 10px;
 `;
 const Score = styled.div`
+  width: 10%;
+  text-align: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   font-size: 0.9em;
   font-weight: 700;
+  color: #01d277;
 `;
 const Title = styled.div`
+  display: flex;
+  flex-direction: column;
   color: #2f2f2f;
   font-size: 0.9em;
   font-weight: 700;
+  padding: 0 10px;
 `;
-const Date = styled.div`
+const Date = styled.p`
+  padding-top: 5px;
+  color: #696969;
+  font-size: 0.7em;
+`;
+const OverView = styled(LinesEllipsis)`
+  line-height: 1.2em;
   font-size: 0.8em;
+  overflow: hidden;
+  padding: 0 10px;
+  word-break: break-all;
 `;
-const OverView = styled.div`
-  font-size: 0.8em;
+const MoreInfo = styled.p`
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding-left: 10px;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  font-size: 0.7em;
+  font-weight: 700;
+  color: #696969;
+  border-top: 1px solid #e0e0e0;
 `;
-const MoreInfo = styled(Link)``;
 
 const MediaCardComponent = ({
   id,
+  title,
   original_title,
   vote_average,
   overview,
@@ -58,12 +98,14 @@ const MediaCardComponent = ({
       <TitleContainer>
         <Score>{vote_average}</Score>
         <Title>
-          <Link to={detail_link}>{original_title}</Link>
+          <Link to={detail_link}>{title}</Link>
+          <Date>{release_date}</Date>
         </Title>
-        <Date>{release_date}</Date>
       </TitleContainer>
-      <OverView>{overview}</OverView>
-      <MoreInfo to={detail_link}>More Info</MoreInfo>
+      <OverView text={overview} maxLine="9" ellipsis="..." trimRight basedOn="letters" />
+      <MoreInfo>
+        <Link to={detail_link}>More Info</Link>
+      </MoreInfo>
     </MediaInfo>
   </Container>
 );
