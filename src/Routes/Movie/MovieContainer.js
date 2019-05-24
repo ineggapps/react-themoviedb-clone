@@ -1,6 +1,7 @@
 import React from "react";
 import MoviePresenter from "./MoviePresenter";
 import { movieApi } from "api";
+import { Routes } from "Components/Router";
 
 export default class extends React.Component {
   state = {
@@ -21,16 +22,16 @@ export default class extends React.Component {
   }
 
   getMovieItems = pathname => {
-    if (pathname.includes("/now-playing")) {
+    if (pathname.includes(Routes.movie.nowPlaying)) {
       console.log("getMovieItems", "now-playing");
       return movieApi.nowPlaying();
-    } else if (pathname.includes("popular")) {
+    } else if (pathname.includes(Routes.movie.popular)) {
       console.log("getMovieItems", "popular");
       return movieApi.popular();
-    } else if (pathname.includes("top-rated")) {
-      console.log("getMovieItems", "top_rated");
+    } else if (pathname.includes(Routes.movie.topRated)) {
+      console.log("getMovieItems", "top-rated");
       return movieApi.topRated();
-    } else if (pathname.includes("upcoming")) {
+    } else if (pathname.includes(Routes.movie.upcoming)) {
       console.log("getMovieItems", "upcoming");
       return movieApi.upcoming();
     } else {
@@ -71,7 +72,7 @@ export default class extends React.Component {
         data: { results: movies }
       } = await this.getMovieItems(nextPathname);
       // console.log("next", movies);
-      this.setState({ nextPathname, movies, loading: false });
+      this.setState({ pathname: nextPathname, movies, loading: false });
     } catch (error) {
       console.log("👿MovieContainer:componentWillReceiveProps()", error);
     }

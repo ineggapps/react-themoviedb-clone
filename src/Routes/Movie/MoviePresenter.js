@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MediaCard from "Components/MediaCard";
+import { Routes } from "Components/Router";
 
 const MovieContainer = styled.div`
   display: grid;
@@ -15,13 +16,14 @@ const MovieTitle = styled.h1`
 `;
 
 const movieTitleName = pathname => {
-  if (pathname.includes("now-playing")) {
+  console.log(pathname, Routes.movie.nowPlaying, "👿");
+  if (pathname.includes(Routes.movie.nowPlaying)) {
     return "Now Playing Movies";
-  } else if (pathname.includes("popular")) {
+  } else if (pathname.includes(Routes.movie.popular)) {
     return "Popular Movies";
-  } else if (pathname.includes("top-rated")) {
+  } else if (pathname.includes(Routes.movie.topRated)) {
     return "Top Rated Movies";
-  } else if (pathname.includes("upcoming")) {
+  } else if (pathname.includes(Routes.movie.upcoming)) {
     return "UpComing Movies";
   } else {
     return "Now Playing Movies";
@@ -34,6 +36,7 @@ const MoviePresenter = ({ loading, movies, pathname }) => {
     : console.log("👿MoviePresenter is null");
   return (
     <>
+      {console.log("movieTitleName:", pathname)}
       <MovieTitle>{movieTitleName(pathname)}</MovieTitle>
       <MovieContainer>
         {movies &&

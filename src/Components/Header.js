@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "Components/Logo";
 import SearchBox from "Components/SearchBox";
+import { Routes } from "Components/Router";
 
 const Header = styled.header`
   position: fixed;
@@ -79,36 +80,36 @@ const HeaderComponent = ({ location: { pathname } }) => (
             <Link to="/">Discover</Link>
           </Item>
           <Item>
-            <Link to="/movie">Movies</Link>
+            <Link to={Routes.movie.home}>Movies</Link>
             <SubMenu>
               <SubItem>
-                <Link to="/movie/now-playing">Now Playing</Link>
+                <Link to={Routes.movie.nowPlaying}>Now Playing</Link>
               </SubItem>
               <SubItem>
-                <Link to="/movie/popular">Popular</Link>
+                <Link to={Routes.movie.popular}>Popular</Link>
               </SubItem>
               <SubItem>
-                <Link to="/movie/top-rated">Top Rated</Link>
+                <Link to={Routes.movie.topRated}>Top Rated</Link>
               </SubItem>
               <SubItem>
-                <Link to="/movie/upcoming">Upcoming</Link>
+                <Link to={Routes.movie.upcoming}>Upcoming</Link>
               </SubItem>
             </SubMenu>
           </Item>
           <Item>
-            <Link to="/tv">TV Shows</Link>
+            <Link to={Routes.tv.home}>TV Shows</Link>
             <SubMenu>
               <SubItem>
-                <Link to="/tv/airing-today">Airing Today</Link>
+                <Link to={Routes.tv.airingToday}>Airing Today</Link>
               </SubItem>
               <SubItem>
-                <Link to="/tv/popular">Popular</Link>
+                <Link to={Routes.tv.popular}>Popular</Link>
               </SubItem>
               <SubItem>
-                <Link to="/tv/top-rated">Top Rated</Link>
+                <Link to={Routes.tv.topRated}>Top Rated</Link>
               </SubItem>
               <SubItem>
-                <Link to="/tv/upcoming">Upcoming</Link>
+                <Link to={Routes.tv.upcoming}>Upcoming</Link>
               </SubItem>
             </SubMenu>
           </Item>
