@@ -2,7 +2,8 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const globalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Days+One&display=swap');
+    @import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
     ${reset};
     a{
         text-decoration:none;

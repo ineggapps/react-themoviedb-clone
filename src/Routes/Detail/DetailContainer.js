@@ -2,11 +2,15 @@ import React from "react";
 import DetailPresenter from "./DetailPresenter";
 import { movieApi, tvApi } from "../../api";
 import { Routes } from "Components/Router";
+//https://www.npmjs.com/package/get-image-colors
+import getColors from "get-image-colors";
+import Loader from "Components/Loader";
 
 export default class extends React.Component {
   state = {
     videoId: 0,
     detail: null,
+    colors: [],
     loading: true
   };
 
@@ -34,20 +38,41 @@ export default class extends React.Component {
     }
   };
 
-  async componentDidMount() {
+  parseImage = async path => {
+    let arrayColor = [];
+    const result = await getColors(`${Routes.image.original}${path}`).then(
+      colors => (arrayColor = colors)
+    );
+    return arrayColor;
+  };
+
+  async componentWillMount() {
     const {
       location: { pathname }
     } = this.props;
     const { videoId } = this.state;
     const { data: detail } = await this.getDetail(pathname, videoId);
+    const { backdrop_path: backdropPath } = detail;
+    let colors = [{ _rgb: [255, 255, 255, 1] }, { _rgb: [0, 0, 0, 1] }];
+    if (backdropPath !== undefined && backdropPath && backdropPath.length > 0) {
+      colors = await this.parseImage(backdropPath);
+    }
+    console.log("Colors will forward to component of presenter 🐯🐯🐯", colors);
     this.setState({
       detail,
-      loading: false
+      loading: false,
+      colors
     });
   }
 
   render() {
-    const { loading, detail } = this.state;
-    return <DetailPresenter loading={loading} detail={detail} />;
+    const { loading, detail, colors } = this.state;
+    if (colors === undefined) {
+      //if you ignore below code in if passage, render() forward colors undefined to presenter.
+      //And then browser can't get color resources.
+      return <Loader />;
+    }
+    console.log("Colors will forward to component of presenter 🙏🙏🙏", colors);
+    return <DetailPresenter loading={loading} detail={detail} colors={colors} />;
   }
 }

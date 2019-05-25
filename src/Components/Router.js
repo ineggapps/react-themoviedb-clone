@@ -45,6 +45,13 @@ export const Routes = {
   },
   search: {
     home: ROUTE_SEARCH
+  },
+  image: {
+    original: "https://image.tmdb.org/t/p/original/",
+    w200: "https://image.tmdb.org/t/p/w200/",
+    w300: "https://image.tmdb.org/t/p/w300/",
+    w400: "https://image.tmdb.org/t/p/w400/",
+    w500: "https://image.tmdb.org/t/p/w500/"
   }
 };
 
