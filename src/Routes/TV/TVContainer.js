@@ -20,12 +20,15 @@ export default class extends React.Component {
       Routes.tv.popular,
       Routes.tv.topRated
     ];
+    let exists = false;
     menus.map(menu => {
       if (pathname.includes(menu)) {
-        return true;
+        console.log("💖pathname", pathname, menu);
+        exists = true;
       }
     });
-    return false;
+    console.log("💖I will return", exists);
+    return exists;
   }
 
   constructor(props) {
@@ -37,9 +40,10 @@ export default class extends React.Component {
       }
     } = props;
     //check valid of pathname
-    if (!this.checkValidOfPathname(pathname)) {
+    if (pathname === undefined || !this.checkValidOfPathname(pathname)) {
       pathname = Routes.tv.onTheAir;
     }
+    console.log("I will initialize pathname😉", pathname);
     this.state = {
       pathname,
       page: page === undefined ? 1 : page
@@ -110,7 +114,13 @@ export default class extends React.Component {
       } = await this.getTVItems(nextPathname);
       console.log("🐯🐯🐯🐯👍", await this.getTVItems(nextPathname, page));
       //check valid of pathname
-      if (!this.checkValidOfPathname(nextPathname)) {
+      if (nextPathname === undefined || !this.checkValidOfPathname(nextPathname)) {
+        console.log(
+          "invalid this pathname🎃",
+          nextPathname,
+          "I will modify pathname",
+          Routes.tv.onTheAir
+        );
         nextPathname = Routes.tv.onTheAir;
       }
       this.setState({
@@ -132,6 +142,7 @@ export default class extends React.Component {
 
   render() {
     const { loading, tvs, pathname, page, totalPages } = this.state;
+    console.log("Render method will return 😊 value", pathname, page, tvs);
     return (
       <TVPresenter
         loading={loading}

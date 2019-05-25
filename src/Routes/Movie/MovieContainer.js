@@ -20,12 +20,13 @@ export default class extends React.Component {
       Routes.movie.topRated,
       Routes.movie.upcoming
     ];
+    let exists = false;
     menus.map(menu => {
       if (pathname.includes(menu)) {
-        return true;
+        exists = true;
       }
     });
-    return false;
+    return exists;
   }
 
   constructor(props) {
@@ -38,20 +39,19 @@ export default class extends React.Component {
     } = props;
 
     //check valid of pathname
-    if (!this.checkValidOfPathname(pathname)) {
+    if (pathname === undefined || !this.checkValidOfPathname(pathname)) {
       pathname = Routes.movie.nowPlaying;
     }
-
+    console.log("I will initialize pathname😉", pathname);
     this.state = {
       pathname,
-      page: page === undefined ? 1 : page
+      page
     };
-    console.log("😂page is", this.state.page, page === undefined);
     console.log("MovieContainer👍", props, "🐯page is", props.match.params.page);
   }
 
-  getMovieItems = (pathname, page = this.state.page) => {
-    console.log("getMovieItems called in page ", page);
+  getMovieItems = pathname => {
+    const { page } = this.state;
     if (pathname.includes(Routes.movie.nowPlaying)) {
       console.log("getMovieItems", "now-playing");
       return movieApi.nowPlaying(page);
@@ -72,8 +72,7 @@ export default class extends React.Component {
 
   setLoadingState = isLoading => {
     this.setState({
-      loading: isLoading,
-      movies: null
+      loading: isLoading
     });
   };
 
@@ -95,6 +94,12 @@ export default class extends React.Component {
 
   async componentWillReceiveProps(nextProps) {
     this.setLoadingState(true);
+    console.log(
+      "😊componentWillReceiveProps()",
+      nextProps,
+      "🐯page is",
+      nextProps.match.params.page
+    );
     try {
       let {
         location: { pathname: nextPathname },
@@ -109,35 +114,25 @@ export default class extends React.Component {
         nextProps.match.params.page
       );
       //check valid of pathname
-      if (!this.checkValidOfPathname(nextPathname)) {
+      if (nextPathname === undefined || !this.checkValidOfPathname(nextPathname)) {
         nextPathname = Routes.movie.nowPlaying;
       }
       this.state = { page };
       const {
         data: { results: movies, total_pages: totalPages }
       } = await this.getMovieItems(nextPathname);
-      console.log("🐯🐯🐯🐯👍", await this.getMovieItems(nextPathname, page));
+      console.log("🐯🐯🐯🐯👍", await this.getMovieItems(nextPathname));
       // console.log("next", movies);
-      await this.setState({
-        pathname: nextPathname,
-        movies,
-        loading: false,
-        page: page === undefined ? 1 : page,
-        totalPages
-      });
-      console.log("😂page is", this.state.page);
+      this.setState({ pathname: nextPathname, movies, loading: false, page, totalPages });
     } catch (error) {
       console.log("👿MovieContainer:componentWillReceiveProps()", error);
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("The loading state is ", nextState.loading);
-    if (this.state.movies === nextState.movies) {
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("The loading state is ", nextState.loading);
+  //   return true;
+  // }
 
   render() {
     const { loading, movies, pathname, page, totalPages } = this.state;

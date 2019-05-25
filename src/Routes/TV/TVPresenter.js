@@ -19,17 +19,17 @@ const TVTitle = styled.h1`
 `;
 
 const tvTitleName = pathname => {
-  console.log(pathname, Routes.tv.nowPlaying, "👿");
-  if (pathname.includes(Routes.tv.nowPlaying)) {
+  console.log(pathname, Routes.tv.onTheAir, "👿");
+  if (pathname.includes(Routes.tv.airingToday)) {
     return "Airing Today Shows";
   } else if (pathname.includes(Routes.tv.popular)) {
     return "Popular TV Shows";
   } else if (pathname.includes(Routes.tv.topRated)) {
     return "Top Rated TV Shows";
-  } else if (pathname.includes(Routes.tv.upcoming)) {
+  } else if (pathname.includes(Routes.tv.onTheAir)) {
     return "On The Air Now!";
   } else {
-    return "On The Air Now!";
+    return "...";
   }
 };
 
