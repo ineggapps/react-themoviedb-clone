@@ -73,7 +73,7 @@ export default () => (
           <Route path={Routes.tv.popular} component={TV} />
           <Route path={`${Routes.tv.topRated}${PARAM_PAGE}`} component={TV} />
           <Route path={Routes.tv.topRated} component={TV} />
-          <Route path={Routes.tv.detail} component={TV} />
+          <Route path={Routes.tv.detail} component={Detail} />
           <Route path={Routes.search.home} component={Search} />
           <Redirect from="*" to="/" />
         </Switch>
