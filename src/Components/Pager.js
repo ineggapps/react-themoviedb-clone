@@ -19,7 +19,8 @@ const Page = styled(Link)`
   }
   &.selected {
     border: 3px solid #01d277;
-    color: #01d277;
+    background-color: #01d277;
+    color: white;
   }
 `;
 
@@ -35,6 +36,9 @@ const Pager = ({ uri, currentPage, totalPages }) => (
 );
 
 const createPager = (uri, currentPage, totalPages) => {
+  //TODO:
+  //기본 라우트 /movie, /tv 에서 페이징할 경우에는 /movie/now-playing/page/1 같은 식으로 주소를 변환해 주어야 함.
+  //어떻게 해야할지 고민해 보기.
   const parsedURI = uri.includes(RouteIdentifier.page) ? uri.split(RouteIdentifier.page)[0] : uri;
   const page = {
     current: Number(currentPage),

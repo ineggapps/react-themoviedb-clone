@@ -13,14 +13,35 @@ export default class extends React.Component {
     loading: true
   };
 
+  checkValidOfPathname(pathname) {
+    const menus = [
+      Routes.movie.nowPlaying,
+      Routes.movie.popular,
+      Routes.movie.topRated,
+      Routes.movie.upcoming
+    ];
+    menus.map(menu => {
+      if (pathname.includes(menu)) {
+        return true;
+      }
+    });
+    return false;
+  }
+
   constructor(props) {
     super(props);
-    const {
+    let {
       location: { pathname },
       match: {
         params: { page }
       }
     } = props;
+
+    //check valid of pathname
+    if (!this.checkValidOfPathname(pathname)) {
+      pathname = Routes.movie.nowPlaying;
+    }
+
     this.state = {
       pathname,
       page: page === undefined ? 1 : page
@@ -75,7 +96,7 @@ export default class extends React.Component {
   async componentWillReceiveProps(nextProps) {
     this.setLoadingState(true);
     try {
-      const {
+      let {
         location: { pathname: nextPathname },
         match: {
           params: { page }
@@ -87,6 +108,10 @@ export default class extends React.Component {
         "🐯page is",
         nextProps.match.params.page
       );
+      //check valid of pathname
+      if (!this.checkValidOfPathname(nextPathname)) {
+        nextPathname = Routes.movie.nowPlaying;
+      }
       this.state = { page };
       const {
         data: { results: movies, total_pages: totalPages }

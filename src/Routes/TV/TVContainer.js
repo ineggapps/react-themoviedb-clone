@@ -13,14 +13,33 @@ export default class extends React.Component {
     loading: true
   };
 
+  checkValidOfPathname(pathname) {
+    const menus = [
+      Routes.tv.onTheAir,
+      Routes.tv.airingToday,
+      Routes.tv.popular,
+      Routes.tv.topRated
+    ];
+    menus.map(menu => {
+      if (pathname.includes(menu)) {
+        return true;
+      }
+    });
+    return false;
+  }
+
   constructor(props) {
     super(props);
-    const {
+    let {
       location: { pathname },
       match: {
         params: { page }
       }
     } = props;
+    //check valid of pathname
+    if (!this.checkValidOfPathname(pathname)) {
+      pathname = Routes.tv.onTheAir;
+    }
     this.state = {
       pathname,
       page: page === undefined ? 1 : page
@@ -79,7 +98,7 @@ export default class extends React.Component {
       nextProps.match.params.page
     );
     try {
-      const {
+      let {
         location: { pathname: nextPathname },
         match: {
           params: { page }
@@ -89,7 +108,10 @@ export default class extends React.Component {
         data: { results: tvs, total_pages: totalPages }
       } = await this.getTVItems(nextPathname);
       console.log("🐯🐯🐯🐯👍", await this.getTVItems(nextPathname, page));
-      // console.log("next",tvs);
+      //check valid of pathname
+      if (!this.checkValidOfPathname(nextPathname)) {
+        nextPathname = Routes.tv.onTheAir;
+      }
       this.setState({
         pathname: nextPathname,
         tvs,
