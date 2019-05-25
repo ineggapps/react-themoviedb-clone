@@ -44,6 +44,7 @@ export default class extends React.Component {
     }
     console.log("I will initialize pathname😉", pathname);
     this.state = {
+      loading: true,
       pathname,
       page
     };
@@ -135,6 +136,7 @@ export default class extends React.Component {
   // }
 
   render() {
+    console.log("✔MovieContainer render() called");
     const { loading, movies, pathname, page, totalPages } = this.state;
     return (
       <MoviePresenter

@@ -71,8 +71,8 @@ TVPresenter.propTypes = {
   loading: PropTypes.bool,
   tvs: PropTypes.array,
   pathname: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired
+  page: PropTypes.number,
+  totalPages: PropTypes.number
 };
 
 export default TVPresenter;

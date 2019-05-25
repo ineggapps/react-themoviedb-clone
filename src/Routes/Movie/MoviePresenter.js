@@ -74,8 +74,8 @@ MoviePresenter.propTypes = {
   loading: PropTypes.bool,
   movies: PropTypes.array,
   pathname: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired
+  page: PropTypes.number,
+  totalPages: PropTypes.number
 };
 
 export default MoviePresenter;

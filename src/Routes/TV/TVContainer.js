@@ -46,7 +46,7 @@ export default class extends React.Component {
     console.log("I will initialize pathname😉", pathname);
     this.state = {
       pathname,
-      page: page === undefined ? 1 : page
+      page: page === undefined ? 1 : Number(page)
     };
     console.log("TVContainer👍", props, "🐯page is", props.match.params.page);
   }
@@ -86,8 +86,8 @@ export default class extends React.Component {
       const {
         data: { results: tvs, total_pages: totalPages }
       } = await this.getTVItems(pathname);
-      // console.log("🙏 tv items are: ", tvs);
-      this.setState({ pathname, tvs, loading: false, totalPages });
+      console.log("🙏 tv items info ", totalPages);
+      this.setState({ pathname, tvs, loading: false, totalPages: Number(totalPages) });
     } catch (error) {
       console.log("👿TVContainer:componentDidMount()", error);
     }
@@ -127,7 +127,7 @@ export default class extends React.Component {
         pathname: nextPathname,
         tvs,
         loading: false,
-        page: page === undefined ? 1 : page,
+        page: page === undefined ? 1 : Number(page),
         totalPages
       });
     } catch (error) {
@@ -136,7 +136,11 @@ export default class extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("The loading state is ", nextState.loading);
+    // console.log("The loading state is ", nextState.loading);
+    const { loading, totalPages } = nextState;
+    if (loading === false && totalPages === undefined) {
+      return false;
+    }
     return true;
   }
 

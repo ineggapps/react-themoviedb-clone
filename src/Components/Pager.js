@@ -98,7 +98,7 @@ const createPager = (uri, currentPage, totalPages) => {
       {/* [6] End (end-1, end) */}
       {page.current < page.total - 1 &&
         end.map((p, index) => (
-          <React.Fragment>
+          <React.Fragment key={p}>
             {index === 0 && <PageSpliter />}
             <Page to={`${parsedURI}/page/${p}`} key={index}>
               {p}
