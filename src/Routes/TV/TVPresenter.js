@@ -58,7 +58,7 @@ const TVPresenter = ({ loading = true, tvs, pathname, page = 1, totalPages }) =>
                 `https://image.tmdb.org/t/p/w200/${tv.poster_path}`
               }
               release_date={tv.first_air_date}
-              detail_link={`${Routes.tv.home}/${tv.id}`}
+              detail_link={`${Routes.tv.detail}/${tv.id}`}
             />
           ))}
       </TVContainer>

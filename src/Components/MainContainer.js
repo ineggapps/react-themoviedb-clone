@@ -13,10 +13,12 @@ const MainContainer = styled.div`
   margin: 0 auto;
 `;
 
-const MainContainerComponent = ({ children }) => (
-  <Wrapper>
-    <MainContainer>{children}</MainContainer>
-  </Wrapper>
-);
+const MainContainerComponent = ({ children }) => {
+  return (
+    <Wrapper>
+      <MainContainer>{children}</MainContainer>
+    </Wrapper>
+  );
+};
 
 export default MainContainer;

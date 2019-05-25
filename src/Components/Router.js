@@ -13,12 +13,16 @@ const ROUTE_HOME = "/";
 const ROUTE_MOVIE = "/movie";
 const ROUTE_TV = "/tv";
 const ROUTE_SEARCH = "/search";
+const ROUTE_DETAIL = "/detail";
 
 const PARAM_PAGE = "/page/:page";
 const PARAM_PAGE_RAW = "/page";
+const PARAM_DETAIL = "/detail/:id";
+const PARAM_DETAIL_RAW = "/detail";
 
 export const RouteIdentifier = {
-  page: PARAM_PAGE_RAW
+  page: PARAM_PAGE_RAW,
+  detail: PARAM_DETAIL_RAW
 };
 
 export const Routes = {
@@ -29,7 +33,7 @@ export const Routes = {
     popular: `${ROUTE_MOVIE}/popular`,
     upcoming: `${ROUTE_MOVIE}/upcoming`,
     topRated: `${ROUTE_MOVIE}/top-rated`,
-    detail: `${ROUTE_MOVIE}/:id`
+    detail: `${ROUTE_MOVIE}${ROUTE_DETAIL}`
   },
   tv: {
     home: ROUTE_TV,
@@ -37,14 +41,14 @@ export const Routes = {
     popular: `${ROUTE_TV}/popular`,
     onTheAir: `${ROUTE_TV}/on-the-air`,
     topRated: `${ROUTE_TV}/top-rated`,
-    detail: `${ROUTE_TV}/:id`
+    detail: `${ROUTE_TV}${ROUTE_DETAIL}`
   },
   search: {
     home: ROUTE_SEARCH
   }
 };
 
-export default () => (
+const StandardRoutes = () => (
   <Router>
     <>
       <Header />
@@ -62,7 +66,7 @@ export default () => (
           <Route path={Routes.movie.topRated} component={Movie} />
           <Route path={`${Routes.movie.upcoming}${PARAM_PAGE}`} component={Movie} />
           <Route path={Routes.movie.upcoming} component={Movie} />
-          <Route path={Routes.movie.detail} component={Detail} />
+          <Route path={`${Routes.movie.home}${PARAM_DETAIL}`} component={Detail} />
           {/* TV */}
           <Route path={Routes.tv.home} exact component={TV} />
           <Route path={`${Routes.tv.onTheAir}${PARAM_PAGE}`} component={TV} />
@@ -73,11 +77,19 @@ export default () => (
           <Route path={Routes.tv.popular} component={TV} />
           <Route path={`${Routes.tv.topRated}${PARAM_PAGE}`} component={TV} />
           <Route path={Routes.tv.topRated} component={TV} />
-          <Route path={Routes.tv.detail} component={Detail} />
+          <Route path={`${Routes.tv.home}${PARAM_DETAIL}`} component={Detail} />
+          {/* Search */}
           <Route path={Routes.search.home} component={Search} />
+          {/* Redirect */}
           <Redirect from="*" to="/" />
         </Switch>
       </MainContainer>
     </>
   </Router>
 );
+
+const AppRouter = () => {
+  return <StandardRoutes />;
+};
+
+export default AppRouter;

@@ -61,7 +61,7 @@ const MoviePresenter = ({ loading = true, movies, pathname, page = 1, totalPages
                 `https://image.tmdb.org/t/p/w200/${movie.poster_path}`
               }
               release_date={movie.release_date}
-              detail_link={`${Routes.movie.home}/${movie.id}`}
+              detail_link={`${Routes.movie.detail}/${movie.id}`}
             />
           ))}
       </MovieContainer>
