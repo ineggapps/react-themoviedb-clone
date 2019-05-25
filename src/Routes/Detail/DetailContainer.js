@@ -11,7 +11,8 @@ export default class extends React.Component {
     videoId: 0,
     detail: null,
     colors: [],
-    loading: true
+    loading: true,
+    isVideoPopup: false
   };
 
   constructor(props) {
@@ -53,7 +54,13 @@ export default class extends React.Component {
     const { videoId } = this.state;
     const { data: detail } = await this.getDetail(pathname, videoId);
     const { backdrop_path: backdropPath } = detail;
-    let colors = [{ _rgb: [255, 255, 255, 1] }, { _rgb: [0, 0, 0, 1] }];
+    let colors = [
+      { _rgb: [0, 0, 34, 1] },
+      { _rgb: [0, 18, 66, 1] },
+      { _rgb: [0, 63, 145, 1] },
+      { _rgb: [0, 148, 198, 1] },
+      { _rgb: [4, 15, 22, 1] }
+    ];
     if (backdropPath !== undefined && backdropPath && backdropPath.length > 0) {
       colors = await this.parseImage(backdropPath);
     }
@@ -65,14 +72,29 @@ export default class extends React.Component {
     });
   }
 
+  videoPopupClick(isVideoPopup) {
+    console.log("called!", isVideoPopup);
+    // this.setState({
+    //   isVideoPopup
+    // });
+  }
+
   render() {
-    const { loading, detail, colors } = this.state;
+    const { loading, detail, colors, isVideoPopup } = this.state;
     if (colors === undefined) {
       //if you ignore below code in if passage, render() forward colors undefined to presenter.
       //And then browser can't get color resources.
       return <Loader />;
     }
     console.log("Colors will forward to component of presenter 🙏🙏🙏", colors);
-    return <DetailPresenter loading={loading} detail={detail} colors={colors} />;
+    return (
+      <DetailPresenter
+        loading={loading}
+        detail={detail}
+        colors={colors}
+        videoPopup={this.videoPopupClick}
+        isVideoPopup={isVideoPopup}
+      />
+    );
   }
 }

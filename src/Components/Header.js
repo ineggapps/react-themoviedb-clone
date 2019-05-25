@@ -79,7 +79,7 @@ const HeaderComponent = ({ location: { pathname } }) => (
         </Link>
         <MainMenu>
           <Item>
-            <Link to="/">Discover</Link>
+            <Link to="/about">About</Link>
           </Item>
           <Item>
             <Link to={Routes.movie.home}>Movies</Link>

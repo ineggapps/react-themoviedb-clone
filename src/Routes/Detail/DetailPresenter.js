@@ -3,6 +3,14 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Routes } from "Components/Router";
 
+const Popup = styled.div`
+  position: absolute;
+  background-color: black;
+  opacity: 0.3;
+  width: 500px;
+  height: 200px;
+`;
+
 const Backdrop = styled.div`
   display: block;
   position: absolute;
@@ -12,8 +20,8 @@ const Backdrop = styled.div`
   height: 500px;
 
   /* background:linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), */
-  background: linear-gradient(
-      to bottom,
+  background: radial-gradient(
+      circle at 20% 50%,
       rgba(
         ${props => props.colors[0]._rgb[0]},
         ${props => props.colors[0]._rgb[1]},
@@ -21,9 +29,9 @@ const Backdrop = styled.div`
         1
       ),
       rgba(
-        ${props => props.colors[1]._rgb[0]},
-        ${props => props.colors[1]._rgb[1]},
-        ${props => props.colors[1]._rgb[2]},
+        ${props => props.colors[2]._rgb[0]},
+        ${props => props.colors[2]._rgb[1]},
+        ${props => props.colors[2]._rgb[2]},
         0.9
       )
     ),
@@ -40,6 +48,7 @@ const Backdrop = styled.div`
 `;
 
 const Container = styled.div`
+  color: white;
   width: 100%;
   height: 500px;
   z-index: 10;
@@ -53,6 +62,7 @@ const Poster = styled.img`
   border-radius: 5px;
 `;
 const NoImage = styled.div`
+  border-radius: 5px;
   width: 300px;
   height: 450px;
   background-color: #efefef;
@@ -60,6 +70,10 @@ const NoImage = styled.div`
 
 const MovieInfo = styled.div`
   margin-left: 50px;
+  padding-top: 50px;
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
 `;
 const MovieTitle = styled.h2`
   color: white;
@@ -78,7 +92,13 @@ const rgbToHex = rgb => {
   return hex;
 };
 
-const DetailPresenter = ({ loading, pathname, detail, colors }) => {
+const onVideoPopupClick = (videoPopup, isVideoPopup, e) => {
+  e.preventDefault();
+  console.log("clicked!", e, videoPopup, isVideoPopup);
+  videoPopup(!isVideoPopup);
+};
+
+const DetailPresenter = ({ loading, pathname, detail, colors, videoPopup, isVideoPopup }) => {
   console.log(detail);
   if (loading === false && detail !== undefined && detail) {
     let { backdrop_path: backdropPath } = detail;
@@ -106,6 +126,15 @@ const DetailPresenter = ({ loading, pathname, detail, colors }) => {
               <MovieTitle>{detail.title ? detail.title : detail.name}</MovieTitle>
               <MovieTooltip>{detail.vote_average}</MovieTooltip>
               <MovieOverview>{detail.overview}</MovieOverview>
+              {isVideoPopup ? (
+                <div>test</div>
+              ) : (
+                <div>
+                  <button onClick={e => onVideoPopupClick(videoPopup, isVideoPopup, e)}>
+                    click me
+                  </button>
+                </div>
+              )}
             </MovieInfo>
           </MovieBox>
         </Container>
@@ -120,7 +149,9 @@ DetailPresenter.propTypes = {
   loading: PropTypes.bool.isRequired,
   pathname: PropTypes.string,
   detail: PropTypes.object,
-  colors: PropTypes.array
+  colors: PropTypes.array,
+  videoPopup: PropTypes.func,
+  isVideoPopup: PropTypes.bool
 };
 
 export default DetailPresenter;
