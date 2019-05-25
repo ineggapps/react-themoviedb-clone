@@ -104,6 +104,7 @@ export default class extends React.Component {
           params: { page }
         }
       } = nextProps;
+      this.state = { page };
       const {
         data: { results: tvs, total_pages: totalPages }
       } = await this.getTVItems(nextPathname);
