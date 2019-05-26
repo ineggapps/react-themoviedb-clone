@@ -16,7 +16,7 @@ const Backdrop = styled.div`
   position: absolute;
   left: 0;
   top: 150px;
-  width: 100%;
+  width: 156vmax;
   height: 500px;
 
   /* background:linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)), */
@@ -35,7 +35,7 @@ const Backdrop = styled.div`
         0.9
       )
     ),
-    url(${props => props.path});
+    url(${props => props.path}) center center;
   background-size: cover;
   text-align: center;
   &:after {
