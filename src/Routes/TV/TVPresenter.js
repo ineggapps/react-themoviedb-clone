@@ -5,6 +5,7 @@ import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
 import Loader from "Components/Loader";
 import Pager from "Components/Pager";
+import MainContainer from "Components/MainContainer";
 
 const TVContainer = styled.div`
   display: grid;
@@ -38,7 +39,7 @@ const TVPresenter = ({ loading = true, tvs, pathname, page = 1, totalPages }) =>
   return loading ? (
     <Loader />
   ) : (
-    <>
+    <MainContainer>
       {console.log("tvTitleName:", pathname)}
       <TVTitle>{tvTitleName(pathname)}</TVTitle>
       <TVContainer>
@@ -63,7 +64,7 @@ const TVPresenter = ({ loading = true, tvs, pathname, page = 1, totalPages }) =>
           ))}
       </TVContainer>
       <Pager uri={pathname} currentPage={page} totalPages={totalPages} />
-    </>
+    </MainContainer>
   );
 };
 

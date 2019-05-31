@@ -1,5 +1,5 @@
 import React from "react";
-
-const HomePresenter = () => <div>Home</div>;
+import MainFullContainer from "Components/MainFullContainer";
+const HomePresenter = () => <MainFullContainer>Home</MainFullContainer>;
 
 export default HomePresenter;

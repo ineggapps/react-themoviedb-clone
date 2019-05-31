@@ -9,17 +9,17 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const MainContainer = styled.div`
-  width: 1000px;
-  margin: 0 auto;
+const MainFullContainer = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
-const MainContainerComponent = ({ children }) => {
+const MainFullContainerComponent = ({ children }) => {
   return (
     <Wrapper>
-      <MainContainer>{children}</MainContainer>
+      <MainFullContainer>{children}</MainFullContainer>
     </Wrapper>
   );
 };
 
-export default MainContainerComponent;
+export default MainFullContainerComponent;

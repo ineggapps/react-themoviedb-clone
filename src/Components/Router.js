@@ -59,7 +59,7 @@ const StandardRoutes = () => (
   <Router>
     <>
       <Header />
-      <MainContainer>
+      <>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/home" exact component={Home} />
@@ -90,7 +90,7 @@ const StandardRoutes = () => (
           {/* Redirect */}
           <Redirect from="*" to="/" />
         </Switch>
-      </MainContainer>
+      </>
     </>
   </Router>
 );

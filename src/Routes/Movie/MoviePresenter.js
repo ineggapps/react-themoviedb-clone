@@ -5,6 +5,7 @@ import MediaCard from "Components/MediaCard";
 import { Routes } from "Components/Router";
 import Loader from "Components/Loader";
 import Pager from "Components/Pager";
+import MainContainer from "Components/MainContainer";
 
 const MovieContainer = styled.div`
   display: grid;
@@ -41,7 +42,7 @@ const MoviePresenter = ({ loading = true, movies, pathname, page = 1, totalPages
   return loading ? (
     <Loader />
   ) : (
-    <>
+    <MainContainer>
       {console.log("movieTitleName:", pathname)}
       <MovieTitle>{movieTitleName(pathname)}</MovieTitle>
       <MovieContainer>
@@ -66,7 +67,7 @@ const MoviePresenter = ({ loading = true, movies, pathname, page = 1, totalPages
           ))}
       </MovieContainer>
       <Pager uri={pathname} currentPage={page} totalPages={totalPages} />
-    </>
+    </MainContainer>
   );
 };
 

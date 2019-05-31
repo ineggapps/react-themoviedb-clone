@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Routes } from "Components/Router";
+import MainFullContainer from "Components/MainFullContainer";
 
 const Popup = styled.div`
   position: absolute;
@@ -15,7 +16,7 @@ const Backdrop = styled.div`
   display: block;
   position: absolute;
   left: 0;
-  top: 150px;
+  top: -20px;
   width: 156vmax;
   height: 500px;
 
@@ -38,19 +39,20 @@ const Backdrop = styled.div`
     url(${props => props.path}) center center;
   background-size: cover;
   text-align: center;
-  &:after {
+  /* &:after {
     content: ".";
     visibility: hidden;
     text-indent: -1000em;
-  }
+  } */
   opacity: 0.7;
   z-index: -1;
 `;
 
 const Container = styled.div`
   color: white;
-  width: 100%;
+  width: 1000px;
   height: 500px;
+  margin: 0 auto;
   z-index: 10;
 `;
 
@@ -69,7 +71,8 @@ const NoImage = styled.div`
 `;
 
 const MovieInfo = styled.div`
-  margin-left: 50px;
+  width: 100%;
+  margin-left: 20px;
   padding-top: 50px;
   & > *:not(:last-child) {
     margin-bottom: 10px;
@@ -108,7 +111,7 @@ const DetailPresenter = ({ loading, pathname, detail, colors, videoPopup, isVide
     }
     const { poster_path: posterPath } = detail;
     return (
-      <React.Fragment>
+      <MainFullContainer>
         <Backdrop
           path={backdropPath !== undefined && backdropPath.length > 0 && backdropPath}
           colors={colors}
@@ -138,7 +141,7 @@ const DetailPresenter = ({ loading, pathname, detail, colors, videoPopup, isVide
             </MovieInfo>
           </MovieBox>
         </Container>
-      </React.Fragment>
+      </MainFullContainer>
     );
   } else {
     return <div>loading</div>;
